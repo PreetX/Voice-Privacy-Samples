@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script
+      async=""
+      src="https://www.googletagmanager.com/gtag/js?id=UA-138229553-6"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "UA-138229553-6");
+    </script>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CycleGAN-VC2</title>
+    <link href="./css/control.css" rel="stylesheet" />
+    <link href="./css/style.css" rel="stylesheet" />
+    <style type="text/css">
+      main {
+        padding-bottom: 50px;
+      }
+      header a:link {
+        color: #eeeeee;
+      }
+      header a:hover {
+        color: #eeeeee;
+      }
+      header a:visited {
+        color: #eeeeee;
+      }
+      header a:active {
+        color: #eeeeee;
+      }
+      footer {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background-color: #333333;
+        color: #bbbbbb;
+      }
+      table {
+        width: 100%;
+        table-layout: fixed;
+      }
+      th {
+        text-align: center;
+        vertical-align: middle;
+      }
+      td {
+        text-align: center;
+        vertical-align: middle;
+      }
+      th#strong {
+        color: #ff33cc;
+      }
+      #pinkstrong {
+        color: #ff33cc;
+      }
+      audio {
+        width: 100%;
+      }
+      .jumbotroncolor {
+        background-color: #333333;
+        color: #eeeeee;
+      }
+      .thumbnailsize {
+        width: 200px;
+      }
+      .thumbnailshadow {
+        filter: drop-shadow(5px 5px 5px #aaa);
+      }
+      @media screen and (max-width: 767px) {
+        h1 {
+          font-size: 20pt;
+        }
+      }
+      @media screen and (min-width: 768px) {
+        h1 {
+          font-size: 30pt;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="header" id="top">
+      <div class="jumbotron jumbotroncolor text-center">
+        <div class="container">
+          <h1>CycleGAN-VC2:</h1>
+          <h2>Improved CycleGAN-based Non-parallel Voice Conversion</h2>
+          <p class="lead">
+            <a>Takuhiro Kaneko</a>&nbsp;&nbsp;&nbsp;
+            <a
+              href="http://www.kecl.ntt.co.jp/people/kameoka.hirokazu/index-e.html"
+              >Hirokazu Kameoka</a
+            >&nbsp;&nbsp;&nbsp;
+            <a href="http://www.kecl.ntt.co.jp/people/tanaka.ko/index.html"
+              >Kou Tanaka</a
+            >&nbsp;&nbsp;&nbsp; Nobukatsu Hojo<br />
+            <a href="http://www.kecl.ntt.co.jp/english/index.html"
+              >NTT Communication Science Laboratories</a
+            >,
+            <a href="https://www.rd.ntt/e/">NTT Corporation</a>
+          </p>
+          <p class="lead">
+            <a href="https://ieeexplore.ieee.org/document/8682897"
+              >ICASSP 2019</a
+            ><br />
+            <a href="https://arxiv.org/abs/1904.04631">arXiv:1904.04631</a>,
+            Apr. 2019
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <div class="row" id="paper">
+          <div class="col-md-12">
+            <h2>Paper</h2>
+            <div class="row align-items-center">
+              <div class="thumbnailsize" align="center">
+                <a href="https://arxiv.org/pdf/1904.04631.pdf"
+                  ><img class="thumbnailshadow" width="150"
+                /></a>
+              </div>
+              <div class="col-md-9">
+                <p>
+                  Takuhiro Kaneko, Hirokazu Kameoka, Kou Tanaka, and Nobukatsu
+                  Hojo<br />
+                  <strong
+                    >CycleGAN-VC2: Improved CycleGAN-based Non-parallel Voice
+                    Conversion</strong
+                  ><br />
+                  <em>ICASSP 2019</em>
+                  <small>(arXiv:1904.04631, Apr. 2019)</small><br />
+                  [<a href="https://arxiv.org/abs/1904.04631">Paper</a>] [<a
+                    href="https://ieeexplore.ieee.org/document/8682897"
+                    >IEEE Xplore</a
+                  >] [<a
+                    href="resources/Kaneko_CycleGAN-VC2_ICASSP_2019_poster.pdf"
+                    >Poster</a
+                  >] [<a href="resources/CycleGAN-VC2.txt">BibTeX</a>]
+                </p>
+                <ul>
+                  <li>
+                    <strong>Our relevant previous work:</strong>
+                    <a><strong>CycleGAN-VC</strong></a>
+                    and
+                    <a
+                      href="http://www.kecl.ntt.co.jp/people/kameoka.hirokazu/Demos/stargan-vc/"
+                      ><strong>StarGAN-VC</strong></a
+                    >
+                  </li>
+                  <li>
+                    <strong>Our relevant follow-up work:</strong>
+                    <a><strong>StarGAN-VC2</strong></a>
+                    and
+                    <a><strong>CycleGAN-VC3</strong></a>
+                  </li>
+                  <li>
+                    <strong>Other demos:</strong>
+                    <a
+                      href="http://www.kecl.ntt.co.jp/people/kameoka.hirokazu/Demos/"
+                      ><strong>Demos</strong></a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="row" id="introduction">
+          <div class="col-md-12">
+            <h2>CycleGAN-VC2</h2>
+            <div>
+              <p>
+                To advance the research on non-parallel VC, we propose
+                CycleGAN-VC2, which is an improved version of
+                <a>CycleGAN-VC</a>
+                incorporating three new techniques: an improved objective
+                (<strong>two-step adversarial losses</strong>), improved
+                generator (<strong>2-1-2D CNN</strong>), and improved
+                discriminator (<strong>Patch GAN</strong>).
+              </p>
+
+              <!-- <figure class="figure">
+                <center>
+                  <a name="fig1"
+                    ><img
+                      src="images/network.png"
+                      class="figure-img"
+                      alt="network"
+                      width="100%"
+                  /></a>
+                </center>
+              </figure> -->
+            </div>
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="row" id="results">
+          <div class="col-md-12">
+            <h2>Converted speech samples</h2>
+
+            <h3>Experimental conditions</h3>
+
+            <h4>Dataset</h4>
+            <ul>
+              <li>
+                We evaluated our method on the <strong>Spoke</strong> (i.e.,
+                <strong>non-parallel VC</strong>) task of
+                <a href="https://datashare.is.ed.ac.uk/handle/10283/3061"
+                  >the Voice Conversion Challenge 2018 (VCC 2018) dataset</a
+                >
+                <a href="#1">[1]</a>.
+              </li>
+              <li>
+                Each speaker has 81 sentences (<strong>about 5 minutes</strong>)
+                for training. This is <strong>relatively little</strong> for VC.
+              </li>
+              <li>
+                The sentence set of the source speakers is
+                <strong>different (no overlap)</strong> from that of the target
+                speakers so as to evaluate in a non-parallel setting.
+              </li>
+              <li>
+                Note that we did
+                <strong
+                  >not use any extra data, module, or time alignment
+                  procedures</strong
+                >.
+              </li>
+            </ul>
+
+            <h4>Voice conversion framework</h4>
+            <ul>
+              <li>
+                In <strong>intra-gender conversion</strong>, a
+                <strong>vocder-free VC framework</strong>
+                <a href="#2">[2]</a> was used. The converted speech is generated
+                by filtering the source speech by using differential MCEPs. This
+                is the same as the VCC 2018 baseline <a href="#3">[3]</a>.
+              </li>
+              <li>
+                In <strong>inter-gender conversion</strong>, a
+                <strong>vocder-based VC framework</strong>
+                <a href="#4">[4]</a> was used. The converted speech is generated
+                by using the WORLD synthesizer <a href="#5">[5]</a> with
+                converted acoustic features. This is the same as the VCC 2018
+                baseline <a href="#1">[3]</a>.
+              </li>
+            </ul>
+
+            <h4>Notation</h4>
+            <ul>
+              <li>
+                <strong>Source</strong> is the <em>source</em> speech samples.
+              </li>
+              <li>
+                <strong>Target</strong> is the <em>target</em> speech samples.
+                They are provided as references. Note that we did
+                <strong>not use such paired data in training</strong>.
+              </li>
+              <li>
+                <strong>CycleGAN-VC</strong> is the <em>converted</em> speech
+                samples, in which the conventional
+                <a><strong>CycleGAN-VC</strong></a>
+                <a href="#6">[6]</a> was used to convert <strong>MCEPs.</strong>
+              </li>
+              <li>
+                <strong>CycleGAN-VC2</strong> is the <em>converted</em> speech
+                samples, in which the proposed
+                <strong id="pinkstrong">CycleGAN-VC2</strong> was used to
+                convert <strong>MCEPs.</strong>
+              </li>
+              <li>
+                <strong>CycleGAN-VC2++</strong> is the <em>converted</em> speech
+                samples, in which the proposed
+                <strong id="pinkstrong">CycleGAN-VC2</strong> was used to
+                convert <strong>all acoustic features</strong> (namely, MCEPs,
+                band APs, continuous log F<sub>0</sub>, and voice/unvoice
+                indicator). When using a vocoder-free VC framework, all acoustic
+                features were used for training, but only MCEPs were used for
+                conversion.
+              </li>
+            </ul>
+
+            <h3>Results</h3>
+            <p>
+              <strong>NOTE:</strong> Recommended browsers are Apple Safari,
+              Google Chrome, or Mozilla Firefox.
+            </p>
+
+            <h4>
+              Intra-gender conversion (vocoder-free VC <a href="#2">[2]</a>)
+            </h4>
+
+            <p class="lead">Female (VCC2SF3) → Female (VCC2TF1)</p>
+            <div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Source</th>
+                    <th>Target</th>
+                    <th>CycleGAN-VC<br />(Conventional)</th>
+                    <th id="strong">CycleGAN-VC2<br />(Proposed)</th>
+                    <th id="strong">CycleGAN-VC2++<br />(Proposed)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Sample 1</th>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="./audio_files/ffsvc_t1_06388_1_MDM4.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="./audio_files/ffsvc_t1_06389_1_MDM4.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="./audio_files/ffsvc_t1_06395_1_MDM4.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="./audio_files/ffsvc_t1_06402_1_MDM4.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="./audio_files/ffsvc_t1_06403_1_MDM4.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Sample 2</th>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2SF3_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_VCC2SF3_V1_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_VCC2SF3_V2_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_VCC2SF3_V2pp_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Sample 3</th>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2SF3_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_VCC2SF3_V1_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_VCC2SF3_V2_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_VCC2SF3_V2pp_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="lead">Male (VCC2SM3) → Male (VCC2TM1)</p>
+            <div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Source</th>
+                    <th>Target</th>
+                    <th>CycleGAN-VC<br />(Conventional)</th>
+                    <th id="strong">CycleGAN-VC2<br />(Proposed)</th>
+                    <th id="strong">CycleGAN-VC2++<br />(Proposed)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Sample 1</th>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2SM3_30001.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_30001.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SM3_V1_30001.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SM3_V2_30001.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SM3_V2pp_30001.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Sample 2</th>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2SM3_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SM3_V1_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SM3_V2_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SM3_V2pp_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Sample 3</th>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2SM3_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SM3_V1_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SM3_V2_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SM3_V2pp_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4>
+              Inter-gender conversion (vocoder-based VC <a href="#4">[4]</a>)
+            </h4>
+
+            <p class="lead">Male (VCC2SM3) → Female (VCC2TF1)</p>
+            <div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Source</th>
+                    <th>Target</th>
+                    <th>CycleGAN-VC<br />(Conventional)</th>
+                    <th id="strong">CycleGAN-VC2<br />(Proposed)</th>
+                    <th id="strong">CycleGAN-VC2++<br />(Proposed)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Sample 1</th>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2SM3_30001.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_30001.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_VCC2SM3_V1_30001.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_VCC2SM3_V2_30001.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_VCC2SM3_V2pp_30001.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Sample 2</th>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2SM3_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_VCC2SM3_V1_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_VCC2SM3_V2_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_VCC2SM3_V2pp_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Sample 3</th>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2SM3_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_VCC2SM3_V1_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_VCC2SM3_V2_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_VCC2SM3_V2pp_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="lead">Female (VCC2SF3) → Male (VCC2TM1)</p>
+            <div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Source</th>
+                    <th>Target</th>
+                    <th>CycleGAN-VC<br />(Conventional)</th>
+                    <th id="strong">CycleGAN-VC2<br />(Proposed)</th>
+                    <th id="strong">CycleGAN-VC2++<br />(Proposed)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Sample 1</th>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2SF3_30001.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_30001.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SF3_V1_30001.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SF3_V2_30001.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SF3_V2pp_30001.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Sample 2</th>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2SF3_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SF3_V1_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SF3_V2_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SF3_V2pp_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Sample 3</th>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2SF3_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SF3_V1_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SF3_V2_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SF3_V2pp_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <hr />
+        <div class="row" id="related">
+          <div class="col-md-12">
+            <h2>Related work</h2>
+            <p>Refer to the following websites for comparison.</p>
+
+            <ul>
+              <li>
+                <a href="https://github.com/k2kobayashi/sprocket"
+                  >VCC 2018 Baseline</a
+                >
+                <a href="#3">[3]</a>
+              </li>
+              <li>
+                <a>CycleGAN-VC</a>
+                <a href="#6">[6]</a>
+              </li>
+              <li>
+                <a
+                  href="http://www.kecl.ntt.co.jp/people/kameoka.hirokazu/Demos/stargan-vc/"
+                  >StarGAN-VC</a
+                >
+                <a href="#7">[7]</a>
+              </li>
+              <li>
+                <a>StarGAN-VC2</a>
+                <a href="#8">[8]</a>
+              </li>
+              <li>
+                <a
+                  href="http://www.kecl.ntt.co.jp/people/kameoka.hirokazu/Demos/acvae-vc/"
+                  >ACVAE-VC</a
+                >
+                <a href="#9">[9]</a>
+              </li>
+              <li>
+                <a href="https://jeremycchsu.github.io/vc-vawgan/"
+                  >VAW-GAN-VC</a
+                >
+                <a href="#10">[10]</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="row" id="references">
+          <div class="col-md-12">
+            <h2>References</h2>
+            <div>
+              <p>
+                <a name="1" class="text-primary">[1]</a>
+                J. Lorenzo-Trueba, J. Yamagishi, T. Toda, D. Saito, F.
+                Villavicencio, T. Kinnunen, and Z. Ling.
+                <strong
+                  >The Voice Conversion Challenge 2018: Promoting Development of
+                  Parallel and Nonparallel Methods</strong
+                >. <em>Odyssey</em>, 2018. [<a
+                  href="https://arxiv.org/abs/1804.04262"
+                  >Paper</a
+                >] [<a href="https://datashare.is.ed.ac.uk/handle/10283/3061"
+                  >Dataset</a
+                >]
+              </p>
+
+              <p>
+                <a name="2" class="text-primary">[2]</a>
+                K. Kobayashi, T. Toda, and S. Nakamura.
+                <strong
+                  >F0 Transformation Techniques for Statistical Voice Conversion
+                  with Direct Waveform Modification with Spectral
+                  Differential</strong
+                >. <em>SLT</em>, 2016. [<a
+                  href="https://ieeexplore.ieee.org/document/7846338"
+                  >Paper</a
+                >] [<a href="https://github.com/k2kobayashi/sprocket">Project</a
+                >]
+              </p>
+
+              <p>
+                <a name="3" class="text-primary">[3]</a>
+                K. Kobayashi and T. Toda.
+                <strong>sprocket: Open-Source Voice Conversion Software</strong
+                >. <em>Odyssey</em>, 2018. [<a
+                  href="https://nuss.nagoya-u.ac.jp/s/h8YKnq6qxjjxtU3#pdfviewer"
+                  >Paper</a
+                >] [<a href="https://github.com/k2kobayashi/sprocket">Project</a
+                >]
+              </p>
+
+              <p>
+                <a name="4" class="text-primary">[4]</a>
+                T. Toda, A. W Black, and K. Tokuda.
+                <strong
+                  >Voice Conversion Based on Maximum Likelihood Estimation of
+                  Spectral Parameter Trajectory</strong
+                >. <em>IEEE Trans. Audio Speech Lang. Process.</em>, 2007. [<a
+                  href="https://ieeexplore.ieee.org/document/4317579?reload=true"
+                  >Paper</a
+                >]
+              </p>
+
+              <p>
+                <a name="5" class="text-primary">[5]</a>
+                M. Morise, F. Yokomori, and K. Ozawa.
+                <strong
+                  >WORLD: A Vocoder-Based High-Quality Speech Synthesis System
+                  for Real-Time Applications</strong
+                >. <em>IEICE Trans. Inf. Syst.</em>, 2016. [<a
+                  href="https://www.jstage.jst.go.jp/article/transinf/E99.D/7/E99.D_2015EDP7457/_article"
+                  >Paper</a
+                >] [<a
+                  href="http://www.kki.yamanashi.ac.jp/~mmorise/world/english/index.html"
+                  >Project</a
+                >]
+              </p>
+
+              <p>
+                <a name="6" class="text-primary">[6]</a>
+                T. Kaneko and H. Kameoka.
+                <strong
+                  >Parallel-Data-Free Voice Conversion Using Cycle-Consistent
+                  Adversarial Networks</strong
+                >. <em>arXiv:1711.11293</em>, Nov. 2017 (<em>EUSIPCO</em>,
+                2018). [<a href="https://arxiv.org/abs/1711.11293">Paper</a>]
+                [<a href="../cyclegan-vc/index.html">Project</a>]
+              </p>
+
+              <p>
+                <a name="7" class="text-primary">[7]</a>
+                H. Kameoka, T. Kaneko, K. Tanaka, and N. Hojo.
+                <strong
+                  >StarGAN-VC: Non-parallel Many-to-Many Voice Conversion with
+                  Star Generative Adversarial Networks</strong
+                >. <em>SLT</em>, 2018. [<a
+                  href="https://arxiv.org/abs/1806.02169"
+                  >Paper</a
+                >] [<a
+                  href="http://www.kecl.ntt.co.jp/people/kameoka.hirokazu/Demos/stargan-vc/index.html"
+                  >Project</a
+                >]
+              </p>
+
+              <p>
+                <a name="8" class="text-primary">[8]</a>
+                T. Kaneko, H. Kameoka, K. Tanaka, and N. Hojo.
+                <strong
+                  >StarGAN-VC2: Rethinking Conditional Methods for StarGAN-Based
+                  Voice Conversion</strong
+                >. <em>Interspeech</em>, 2019. [<a
+                  href="https://arxiv.org/abs/1907.12279"
+                  >Paper</a
+                >] [<a href="../stargan-vc2/index.html">Project</a>]
+              </p>
+
+              <p>
+                <a name="9" class="text-primary">[9]</a>
+                H. Kameoka, T. Kaneko, K. Tanaka, and N. Hojo.
+                <strong
+                  >ACVAE-VC: Non-parallel Voice Conversion with Auxiliary
+                  Classifier Variational Autoencoder</strong
+                >. <em>IEEE/ACM Trans. Audio Speech Lang. Process.</em>, May
+                2019. [<a href="https://arxiv.org/abs/1808.05092">Paper</a>] [<a
+                  href="http://www.kecl.ntt.co.jp/people/kameoka.hirokazu/Demos/acvae-vc/index.html"
+                  >Project</a
+                >]
+              </p>
+
+              <p>
+                <a name="10" class="text-primary">[10]</a>
+                C.-C. Hsu, H.-T. Hwang, Y.-C. Wu, Y. Tsao, and H.-M. Wang.
+                <strong
+                  >Voice Conversion from Unaligned Corpora using Variational
+                  Autoencoding Wasserstein Generative Adversarial
+                  Networks</strong
+                >. <em>Interspeech</em>, 2017. [<a
+                  href="https://arxiv.org/abs/1704.00849"
+                  >Paper</a
+                >] [<a href="https://jeremycchsu.github.io/vc-vawgan/"
+                  >Project</a
+                >]
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-center">
+          <small>
+            <strong>CycleGAN-VC2:</strong><br />
+            <strong
+              >Improved CycleGAN-based Non-parallel Voice Conversion</strong
+            ><br />
+            <a>Takuhiro Kaneko</a> | takuhiro.kaneko.tb at hco.ntt.co.jp</small
+          >
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-138229553-6"></script>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Voice Privacy Samples</title>
+    <link href="./css/control.css" rel="stylesheet" />
+    <link href="./css/style.css" rel="stylesheet" />
+    <style type="text/css">
+      main {
+        padding-bottom: 50px;
+      }
+      header a:link {
+        color: #eeeeee;
+      }
+      header a:hover {
+        color: #eeeeee;
+      }
+      header a:visited {
+        color: #eeeeee;
+      }
+      header a:active {
+        color: #eeeeee;
+      }
+
+      footer {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background-color: #333333;
+        color: #bbbbbb;
+      }
+      table {
+        width: 100%;
+        table-layout: fixed;
+      }
+      th {
+        text-align: center;
+        vertical-align: middle;
+      }
+      td {
+        text-align: center;
+        vertical-align: middle;
+      }
+      #strong {
+        color: orange;
+      }
+      audio {
+        width: 100%;
+      }
+      .jumbotroncolor {
+        background-color: #333333;
+        color: #eeeeee;
+      }
+      .thumbnailsize {
+        width: 200px;
+      }
+      .thumbnailshadow {
+        filter: drop-shadow(5px 5px 5px #aaa);
+      }
+      @media screen and (max-width: 767px) {
+        h1 {
+          font-size: 20pt;
+        }
+      }
+      @media screen and (min-width: 768px) {
+        h1 {
+          font-size: 30pt;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="header" id="top">
+      <div class="jumbotron jumbotroncolor text-center">
+        <div class="container">
+          <h1>Voice Privacy using CycleGAN and Time Scale Modification</h1>
+          <!-- <h2>Improved CycleGAN-based Non-parallel Voice Conversion</h2> -->
+          <br /><br />
+          <p class="lead">
+            <a>Gauri P. Prajapati</a>&nbsp;&nbsp;&nbsp;
+            <a>Dipesh K. Singh</a>
+            &nbsp;&nbsp;&nbsp;
+            <a>Preet P. Amin</a>
+            &nbsp;&nbsp;&nbsp; 
+            <a href="https://sites.google.com/site/hemantpatildaiict/">Hemant A. Patil</a> <br />
+            <a href="https://sites.google.com/site/speechlabdaiict/">Speech Research Lab</a>,
+            <a href="https://www.daiict.ac.in/">Dhirubhai Ambani Institute of Information and Communication Technology (DA-IICT)</a>
+          </p>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <div class="row" id="introduction">
+          <div class="col-md-12">
+            <h2>CycleGAN</h2>
+            <div>
+              <p>
+
+              </p>
+              <h3>Architecture</h3>
+              <figure class="figure">
+                <center>
+                  <a name="fig1">
+                    <img
+                      src="images/CycleGAN Generator.png"
+                      class="figure-img"
+                      alt="network"
+                      width="70%"/>
+                  </a>
+                  <figcaption>Generator of CycleGAN network</figcaption>
+                </center>
+              </figure>
+              <figure class="figure">
+                <center>
+                  <a name="fig2">
+                    <img
+                      src="images/CycleGAN Discriminator.png"
+                      class="figure-img"
+                      alt="network"
+                      width="47%"/>
+                  </a>
+                  <figcaption>Discriminator of CycleGAN network</figcaption>
+                </center>
+              </figure>
+            </div>
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="row" id="results">
+          <div class="col-md-12">
+            <h2>Converted Speech Samples</h2>
+            <h3>Notation</h3>
+            <ul>
+              <li>
+                <strong>Original</strong> is the <em>original</em> speech samples from the used datasets.
+              </li>
+              <li>
+                <strong>X-vector</strong> :
+              </li>
+              <li>
+                <strong id="strong">Tempo Perturbation</strong> :
+              </li>
+              <li>
+                <strong id="strong">Speed Perturbation</strong> :
+              </li>
+              <li>
+                <strong id="strong">Pitch Perturbation</strong> :
+              </li>
+              <li>
+                <strong id="strong">CycleGAN</strong> :
+              </li>
+              <li>
+                <strong id="strong">Double Anonymization</strong> :
+              </li>
+            </ul>
+
+            <h3>Results</h3>
+            <p>
+              <strong>NOTE:</strong> Recommended browsers are Mozilla Firefox,
+              Google Chrome, or Apple Safari.
+            </p>
+            <p class="lead"><h4>Male → Female</h4></p>
+            <div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Original</th>
+                    <th>X-vector <br />(Baseline)</th>
+                    <th id="strong">Tempo Perturbation<br />(Proposed)</th>
+                    <th id="strong">Speed Perturbation<br />(Proposed)</th>
+                    <th id="strong">Pitch Perturbation<br />(Proposed)</th>
+                    <th id="strong">CycleGAN<br />(Proposed)</th>
+                    <th id="strong">Double Anonymization<br />(Proposed)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Sample 1</th>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Male to Female/p241_002_mic2_original.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Male to Female/p241_002_mic2_xvector.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2SM3_30001.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_30001.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_VCC2SM3_V1_30001.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Male to Female/p241_002_mic2_cyclegan.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Male to Female/p241_002_mic2_double.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Sample 2</th>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Male to Female/p271_002_mic2_original.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Male to Female/p271_002_mic2_xvector.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2SM3_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_VCC2SM3_V1_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Male to Female/p271_002_mic2_cyclegan.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Male to Female/p271_002_mic2_double.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Sample 3</th>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Male to Female/p272_002_mic2_original.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Male to Female/p272_002_mic2_xvector.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2SM3_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TF1_VCC2SM3_V1_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Male to Female/p272_002_mic2_cyclegan.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Male to Female/p272_002_mic2_double.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="lead"><h4>Female → Male</h4></p>
+            <div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Original</th>
+                    <th>X-vector <br />(Baseline)</th>
+                    <th id="strong">Tempo Perturbation<br />(Proposed)</th>
+                    <th id="strong">Speed Perturbation<br />(Proposed)</th>
+                    <th id="strong">Pitch Perturbation<br />(Proposed)</th>
+                    <th id="strong">CycleGAN<br />(Proposed)</th>
+                    <th id="strong">Double Anonymization<br />(Proposed)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Sample 1</th>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Female to Male/p225_002_mic2_original.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Female to Male/p225_002_mic2_xvector.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2SF3_30001.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_30001.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SF3_V1_30001.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Female to Male/p225_002_mic2_cyclegan.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Female to Male/p225_002_mic2_double.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Sample 2</th>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Female to Male/p231_002_mic2_original.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Female to Male/p231_002_mic2_xvector.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2SF3_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SF3_V1_30002.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Female to Male/p231_002_mic2_cyclegan.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Female to Male/p231_002_mic2_double.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <th scope="row">Sample 3</th>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Female to Male/p269_002_mic2_original.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Female to Male/p269_002_mic2_xvector.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SF3_V1_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SF3_V2_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audios/VCC2TM1_VCC2SF3_V2pp_30003.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Female to Male/p269_002_mic2_cyclegan.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                    <td>
+                      <audio controls="" id="audioElement">
+                        <source
+                          src="audio_files/Female to Male/p269_002_mic2_double.wav"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-center">
+          <small>
+            <!-- <strong>CycleGAN-VC2:</strong><br/> -->
+            <strong>Voice Privacy using CycleGAN and Time Scale Modification</strong><br/>
+        </p>
+      </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+  </body>
+</html>
