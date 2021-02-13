@@ -148,14 +148,6 @@ box-shadow: 2px 2px 4px 0px #006773;
 border-radius:20px 20px 20px 20px ;
 }
 
-audio::-webkit-media-controls-mute-button {
-  display: none !important;
-}
-
-audio::-webkit-media-controls-volume-slider {
-  display: none !important;
-}
-
 audio:not([controls]) {
   display: none;
   height: 0;
