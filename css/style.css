@@ -135,11 +135,6 @@ box-shadow: 15px 15px 20px rgba(0,0, 0, 0.4);
 transform: scale(1.05);
 }
 
-audio::-webkit-media-controls-panel
-{
-  background-color: rgba(20, 20, 20, 0.8);
-}
-
 audio
 {
 -webkit-transition:all 0.2s linear;
@@ -163,7 +158,6 @@ audio::-webkit-media-controls-timeline
 {
   -webkit-appearance: none;
   display: none;
-  width: 0px;
 }
 audio::-webkit-media-controls-volume-slider
 {
@@ -172,7 +166,7 @@ audio::-webkit-media-controls-volume-slider
   max-width: 70px;
   background-color: transparent;
   min-width: 0px;
-  border: initial;
+  border: none;
   color: inherit;
 }
 
@@ -220,25 +214,10 @@ button::-moz-focus-inner,
   padding: 0;
 }
 
-button::-webkit-inner-spin-button,
-[type="button"]::-webkit-inner-spin-button,
-[type="reset"]::-webkit-inner-spin-button,
-[type="submit"]::-webkit-inner-spin-button {
-  border-style: none;
-  padding: 0;
-}
-
 button:-moz-focusring,
 [type="button"]:-moz-focusring,
 [type="reset"]:-moz-focusring,
 [type="submit"]:-moz-focusring {
-  outline: 1px dotted ButtonText;
-}
-
-button:-webkit-progress-inner-element,
-[type="button"]:-webkit-progress-inner-element,
-[type="reset"]:-webkit-progress-inner-element,
-[type="submit"]:-webkit-progress-inner-element {
   outline: 1px dotted ButtonText;
 }
 
